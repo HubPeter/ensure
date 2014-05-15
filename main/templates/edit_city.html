@@ -1,0 +1,11 @@
+<h1>Add City</h1>
+
+<form action="{% url "city-new" %}" method="POST">
+  {% csrf_token %}
+  <ul>
+    {{ form.as_ul }}
+  </ul>
+  <input id="save_city" type="submit" value="Save" />
+</form>
+
+<a href="{% url "city-list" %}">back to list</a>

@@ -1,0 +1,14 @@
+<ht>City List</h1>
+<form action="{% url "city-list" %}" method="POST">
+  {% csrf_token %}
+  <ul>
+    name<input name="name" id="name" value="{{ name }}"/>
+  </ul>
+  <input id="save_city" type="submit" value="Search" />
+</form>
+
+<ul>
+  {% for city in object_list %}
+    <li class = "city"> {{ city }} </li>
+  {% endfor %}
+</ul>
