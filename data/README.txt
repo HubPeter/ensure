@@ -1,6 +1,7 @@
 --backup
 mysqldump ensure -u -p > ensure.sql
+
 --restore
-mysqladmin -u root -p drop ensure
-mysqladmin -u root -p create ensure
+drop ensure;
+CREATE DATABASE ensure DEFAULT CHARACTER SET utf8 COLLATE utf8_general_ci;
 mysql -u -p ensure < ensure.sql

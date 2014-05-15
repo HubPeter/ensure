@@ -39,6 +39,10 @@ INSTALLED_APPS = (
 	'main',
 )
 
+TEMPLATE_LOADERS = (
+    'django.loaders.filesystem.Loader',
+)
+
 MIDDLEWARE_CLASSES = (
     'django.contrib.sessions.middleware.SessionMiddleware',
     'django.middleware.common.CommonMiddleware',
@@ -46,6 +50,10 @@ MIDDLEWARE_CLASSES = (
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
+)
+
+TEMPLATE_DIRS = (
+    join(BASE_DIR, 'templates'),
 )
 
 ROOT_URLCONF = 'ensure.urls'
