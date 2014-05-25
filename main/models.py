@@ -1,6 +1,8 @@
 #-*- coding: utf-8 -*-
-from django.db.models import Model,\
-    CharField, ForeignKey
+from django.db.models import Model\
+    ,CharField, ForeignKey, SmallIntegerField\
+    , IntegerField
+    
 
 class User(Model):
 	username = CharField(\
@@ -38,7 +40,31 @@ class Store( Model ):
 
 class DisasterType( Model ):
 	# 灾害名称
-	name = CharField( max_length = 20 ,\
-				  primary_key=True,)
+	name = CharField( max_length = 20 )
 	def __unicode__(self):
 		return self.name
+
+class DisasterStatus( Model ):
+	name = CharField( max_length = 20 )
+	def __unicode__(self):
+		return self.name
+
+class Disaster( Model ):
+	city = ForeignKey( City )
+	type = ForeignKey( DisasterType )
+	status = ForeignKey( DisasterStatus )
+	def __unicode__(self):
+		return self.city + '-' + self.type
+
+class Category( Model ):
+	name = CharField( max_length = 50 )
+	def __unicode__(self):
+		return self.name
+
+class Material( Model ):
+	name = CharField( max_length = 50 )
+	category = ForeignKey( Category )
+	store = ForeignKey( Store )
+	count = IntegerField()
+	def __unicode__(self):
+		return self.name + '-' + str(self.count)

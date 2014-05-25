@@ -1,5 +1,5 @@
 #-*- coding: utf-8 -*-
-from django.shortcuts import render
+from django.shortcuts import render, redirect
 from django.core.urlresolvers import reverse
 from django.http import HttpResponseRedirect, HttpResponse
 
@@ -9,8 +9,10 @@ from django.views.generic import View
 from django.views.generic import CreateView
 from django.views.generic import ListView
 
-from main.models import User
-from main.models import City
+from main.models import *
+from main.forms import *
+
+import pdb
 
 # user login
 class UserLoginVIew(View):
@@ -32,8 +34,31 @@ class UserLoginVIew(View):
             '''
 
 # scheduler
-
-
+class StatusScheduler(View):
+    template_name = 'status_scheduler.html'
+    def post(self, request):
+        form = SearchForm( request.POST )
+        if form.is_valid():
+            print form.cleaned_data
+            # query all avaliable meterials
+            disastertype = DisasterType.objects\
+                .get( id = int(request.POST['disastertype']))
+            disasterstatus = DisasterStatus.objects\
+                .get( id = int(request.POST['disasterstatus']))
+            city = City.objects.get( id = int(request.POST['city']))
+            # 计算响应物资的需求
+            #
+            #
+            #
+            # 很多公式
+            meterials = Material.objects.all()
+                        
+            context = {'form':form, 'materials':meterials}
+            return render(request, self.template_name, context)
+    def get(self, request):
+        form = SearchForm()
+        context = {'form':form, 'materials':[]}
+        return render(request, self.template_name, context)
 
 # city-search
 class ListCityView(ListView):

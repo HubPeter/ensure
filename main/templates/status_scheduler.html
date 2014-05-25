@@ -6,7 +6,8 @@
 </form>
 
 <ul>
-  {% for city in object_list %}
-    <li class = "city"> {{ city }} </li>
+  {% for material in materials %}
+    <li class = "material"> {{ material.name }} count:{{ material.count }}</li>
+    
   {% endfor %}
 </ul>

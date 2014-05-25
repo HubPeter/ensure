@@ -1,49 +1,20 @@
+#-*- coding: utf-8 -*-
 from django.contrib import admin
 from django.forms import *
-import pdb
+
+from main.models import *
 
 # Register your models here.
 from main.models import *
 
-# forms
-
-class ProvinceForm(ModelForm):
-	class Meta:
-		model = Province
-		fields = ['id', 'name']
-
-class CityForm(ModelForm):
-	province = ModelChoiceField(queryset=Province.objects.all())
-		
-# admin models
-class ProvinceAdmin(admin.ModelAdmin):
-	# fields list in change list
-	list_display = ( 'name' , 'id', )
-	# search field in change list
-	search_fields = ( 'name' ,)
-	# fields to display in edit form
-	fields = ('id', 'name',  )
-	admin_order_field = 'id'
-	#form = ProvinceForm
-
-class CityAdmin(admin.ModelAdmin):
-	#pdb.set_trace()
-	list_display = ( 'name' , 'get_province')
-	# show province's name in changed list
-	def get_province(self, obj):
-		return obj.province.name
-	get_province.short_description = 'Province'
-
-	search_fields = ( 'name' , )
-	#fields = ( 'name','province', )
-	form = CityForm
-	
-class StoreAdmin(admin.ModelAdmin):
-	list_display = ( 'name' , 'city')
-	search_fields = ( 'name' , )
-	fields = ('name', 'city')
-
-class DisasterTypeAdmin( admin.ModelAdmin ):
-	list_display = ( 'name' )
-	
-
+# 根据救援阶段，计算物资
+class SearchForm(Form):
+	disastertype = ModelChoiceField(\
+		queryset=DisasterType.objects.all()\
+			,empty_label = '灾害类型')
+	city = ModelChoiceField(\
+		queryset=City.objects.all()\
+			,empty_label = '受灾位置')
+	disasterstatus = ModelChoiceField(\
+		queryset=DisasterStatus.objects.all()\
+			,empty_label = '救援状态')

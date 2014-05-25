@@ -8,8 +8,9 @@ For the full list of settings and their values, see
 https://docs.djangoproject.com/en/1.6/ref/settings/
 """
 
-# Build paths inside the project like this: os.path.join(BASE_DIR, ...)
 import os
+
+# Build paths inside the project like this: os.path.join(BASE_DIR, ...)
 BASE_DIR = os.path.dirname(os.path.dirname(__file__))
 
 
@@ -36,7 +37,7 @@ INSTALLED_APPS = (
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
-	'main',
+    'main',
 )
 
 #TEMPLATE_LOADERS = (
@@ -53,7 +54,7 @@ MIDDLEWARE_CLASSES = (
 )
 
 TEMPLATE_DIRS = (
-    #join(BASE_DIR, 'templates'),
+    os.path.join(BASE_DIR, 'templates'),
 )
 
 ROOT_URLCONF = 'ensure.urls'
