@@ -1,30 +1,44 @@
 #-*- coding: utf-8 -*-
+from django.db.models import Model,\
+    CharField, ForeignKey
 
-from django.db import models
+class User(Model):
+	username = CharField(\
+		max_length = 30,\
+			primary_key = True,\
+			unique = True)
+	password = CharField(max_length = 30)
+	def __unicode__(self):
+		return self.username
 
-# Create your models here.
-
-class Province( models.Model ):
-	name = models.CharField( max_length = 100 )
+class Province( Model ):
+	name = CharField( max_length = 100 )
 	# to generate string that represent this object
 	def __unicode__(self):
 		return self.name
 
-class City( models.Model ):
-	name = models.CharField( max_length = 100 )
-	province = models.ForeignKey( Province )
+class City( Model ):
+	name = CharField( max_length = 100 )
+	province = ForeignKey( Province )
 	def __unicode__(self):
 		return self.name
 
-class Store( models.Model ):
+class Store( Model ):
 	# 名称
-	name = models.CharField( max_length = 100 )
+	name = CharField( max_length = 100 )
 	# 所在城市
-	city = models.ForeignKey( City )
+	city = ForeignKey( City )
 	# 具体位置
-	location = models.CharField( max_length = 200 )
+	location = CharField( max_length = 200 )
 	# 坐标
-	coordinate = models.CharField( max_length = 100 )
-	comment  = models.CharField( max_length = 200 )
+	coordinate = CharField( max_length = 100 )
+	comment  = CharField( max_length = 200 )
+	def __unicode__(self):
+		return self.name
+
+class DisasterType( Model ):
+	# 灾害名称
+	name = CharField( max_length = 20 ,\
+				  primary_key=True,)
 	def __unicode__(self):
 		return self.name

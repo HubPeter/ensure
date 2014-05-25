@@ -5,7 +5,6 @@ import pdb
 # Register your models here.
 from main.models import *
 
-	
 # forms
 
 class ProvinceForm(ModelForm):
@@ -43,3 +42,8 @@ class StoreAdmin(admin.ModelAdmin):
 	list_display = ( 'name' , 'city')
 	search_fields = ( 'name' , )
 	fields = ('name', 'city')
+
+class DisasterTypeAdmin( admin.ModelAdmin ):
+	list_display = ( 'name' )
+	
+
