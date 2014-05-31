@@ -46,15 +46,20 @@ class StatusScheduler(View):
             disasterstatus = DisasterStatus.objects\
                 .get( id = int(request.POST['disasterstatus']))
             city = City.objects.get( id = int(request.POST['city']))
+            # 筛选精确的物资类别
+            category = Category.objects.get( id = int(request.POST['category']))
+        
             # 计算响应物资的需求
             #
             #
             #
             # 很多公式
             meterials = Material.objects.all()
-                        
             context = {'form':form, 'materials':meterials}
             return render(request, self.template_name, context)
+        else:
+            return HttpResponse('请输入正确的参数')
+
     def get(self, request):
         form = SearchForm()
         context = {'form':form, 'materials':[]}

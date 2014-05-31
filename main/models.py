@@ -68,3 +68,8 @@ class Material( Model ):
 	count = IntegerField()
 	def __unicode__(self):
 		return self.name + '-' + str(self.count)
+
+class DM( Model ):
+	disastertype = ForeignKey( DisasterType )
+	
+	

@@ -1,13 +1,24 @@
-<ht>City List</h1>
+<head><title>物资计算</title></head>
+<ht>物资计算</h1>
 <form action="{% url "status-scheduler" %}" method="POST">
   {% csrf_token %}
-  {{ form.as_p }}
+  灾害类型:{{ form.disastertype }}
+  受灾地:{{ form.city }}</br>
+  当前阶段:{{ form.disasterstatus }}
+  物资类型:{{ form.category }}
+</br>
+
    <input id="search" type="submit" value="查询" />
 </form>
 
-<ul>
-  {% for material in materials %}
-    <li class = "material"> {{ material.name }} count:{{ material.count }}</li>
-    
-  {% endfor %}
-</ul>
+<table summary="物资列表">
+<tr><th>物资名称</th><th>所在仓库</th><th>物资数量</th></tr>
+{% for material in materials %}
+
+<tr>
+  <th><a href="#">{{ material.name }}</a></th>
+  <th><a href="#">{{ material.store }}</a></th> 
+  <th>{{ material.count }}</th>
+</tr>
+{% endfor %}
+</table>
