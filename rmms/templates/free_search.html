@@ -1,0 +1,41 @@
+<head><title>物资检索</title></head>
+<h1>物资检索</h1>
+<form action="{% url "free_search" %}" method="POST">
+    {% csrf_token %}
+    存储仓库:{{ form.store }}
+    所在城市:{{ form.city }}
+    物资种类:{{ form.category }}
+    运输方式:{{ form.transport_way }}
+    物资来源:{{ form.source_way }}
+
+    <input id="search" type="submit" value="查询" />
+</form>
+
+
+<table summary="物资列表">
+<tr>
+    <th>物资名称</th>
+    <th>所在仓库</th>
+    <th>物资数量</th>
+    <th>计量单位</th>
+    <th>生产日期</th>
+    <th>保质期</th>
+    <th>运输方式</th>
+    <th>物资来源</th>
+    <th>保质期内</th>
+</tr>
+
+{% for material in material_store %}
+<tr>
+    <th><a href="#">{{ material.name }}</a></th>
+    <th><a href="#">{{ material.store }}</a></th>
+    <th>{{ material.amount }}</th>
+    <th>{{ material.name.amountunit }}</th>
+    <th>{{ material.production_date }}</th>
+    <th>{{ material.name.shelf_life }}</th>
+    <th>{{ material.name.transport_way }}</th>
+    <th>{{ material.source_way }}</th>
+    <th>{{ material.under_warranty }}</th>
+</tr>
+{% endfor %}
+</table>

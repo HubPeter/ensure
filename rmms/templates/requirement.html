@@ -1,0 +1,68 @@
+<head><title>物资需求量计算</title></head>
+<h1>物资需求量计算</h1>
+
+{% if error_message %}<p><strong>{{ error_message }}</strong></p>{% endif %}
+
+<form action="{% url "requirement" %}" method="POST">
+    {% csrf_token %}
+    灾害事件:{{ form.disaster }}
+    应急阶段:{{ form.rescue_stage }}
+
+    <input id="search" type="submit" value="查询" />
+</form>
+
+{% if disaster %}
+    <table>
+    <tr>
+        <th>灾害详情：</th>
+    </tr>
+    </table>
+    
+    <table summary='灾害信息'>
+    <tr>
+        <th>灾害事件</th>
+        <th>城市</th>
+        <th>发生时间</th>
+        <th>震级</th>
+        <th>震源</th>
+        <th>震源深度</th>
+    </tr>
+    
+    <tr>
+        <th>{{ disaster.name }}</th>
+        <th>{{ disaster.city }}</th>
+        <th>{{ disaster.occur_date }}</th>
+        <th>{{ disaster.level }}</th>
+        <th>{{ disaster.epicentre }}</th>
+        <th>{{ disaster.epicentre_depth }}</th>
+    </tr>
+    </table>
+{% endif %}
+
+{% if materials %}
+    <table>
+    <tr>
+        <th>物资需求列表：</th>
+    </tr>
+    </table>
+    
+    <table summary="物资需求列表">
+    <tr>
+        <th>物资名称</th>
+        <th>物资需求量</th>
+        <th>计量单位</th>
+        <th>保质期</th>
+        <th>运输方式</th>
+    </tr>
+    
+    {% for material in materials %}
+    <tr>
+        <th><a href="#">{{ material.name }}</a></th>
+        <th>{{ material.require_amount }}</th>
+        <th>{{ material.amountunit }}</th>
+        <th>{{ material.shelf_life }}</th>
+        <th>{{ material.transport_way }}</th>
+    </tr>
+    {% endfor %}
+    </table>
+{% endif %}
